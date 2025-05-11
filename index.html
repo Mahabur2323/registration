@@ -266,23 +266,43 @@ function handleAdminLogin() {
     fetch("https://sheetdb.io/api/v1/7etk4by5v2c7d")
       .then(res => res.json())
       .then(data => {
-        let html = "<table border='1' cellpadding='6' style='width:100%; border-collapse:collapse;'><tr><th>নাম</th><th>ঠিকানা</th><th>SSC</th><th>শ্রেণী</th><th>সংখ্যা</th><th>মোবাইল</th><th>Txn ID</th><th>মোট</th></tr>";
+        let html = "<div style='overflow-x:auto;'><table border='1' cellpadding='6' style='width:100%; border-collapse:collapse; min-width:800px'>";
+        html += "<tr style='background:#f2f2f2'><th>নাম</th><th>ঠিকানা</th><th>SSC</th><th>শ্রেণী</th><th>সংখ্যা</th><th>মোবাইল</th><th>Txn ID</th><th>মোট</th></tr>";
+
         let totalP = 0, totalTaka = 0;
+
         data.forEach(row => {
-          html += `<tr><td>${row.NAME||''}</td><td>${row.ADDRESS||''}</td><td>${row.SSC_YEAR||''}</td><td>${row.CLASS||''}</td><td>${row.PARTICIPANTS||''}</td><td>${row.PHONE||''}</td><td>${row.TXN_ID||''}</td><td>${row.TOTAL_FEE||''}</td></tr>`;
-          totalP += parseInt(row.PARTICIPANTS||0);
-          totalTaka += parseInt(row.TOTAL_FEE||0);
+          const participants = parseInt(row.PARTICIPANTS || 0);
+          const totalFee = parseInt(row.TOTAL_FEE || 0);
+
+          html += `<tr>
+            <td>${row.NAME || ''}</td>
+            <td>${row.ADDRESS || ''}</td>
+            <td>${row.SSC_YEAR || ''}</td>
+            <td>${row.CLASS || ''}</td>
+            <td>${participants}</td>
+            <td>${row.PHONE || ''}</td>
+            <td>${row.TXN_ID || ''}</td>
+            <td>${totalFee}</td>
+          </tr>`;
+
+          totalP += participants;
+          totalTaka += totalFee;
         });
-        html += "</table>";
+
+        html += "</table></div>";
+
         document.getElementById("admin-table").innerHTML = html;
-        document.getElementById("admin-summary").innerText = `মোট অংশগ্রহণকারী: ${totalP} | মোট টাকা: ${totalTaka}৳`;
+        document.getElementById("admin-summary").innerText = `✅ মোট অংশগ্রহণকারী: ${totalP} | মোট টাকা: ${totalTaka}৳`;
         document.getElementById("admin-panel").style.display = "block";
         document.getElementById("adminModal").style.display = "none";
+        window.scrollTo({ top: document.getElementById("admin-panel").offsetTop, behavior: "smooth" });
       });
   } else {
-    alert("❌ ভুল পাসওয়ার্ড!");
+    alert("❌ ভুল অ্যাডমিন পাসওয়ার্ড!");
   }
 }
+
 </script>
 </body>
 </html>
