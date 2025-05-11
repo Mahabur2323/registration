@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>আইহাই উচ্চ বিদ্যালয় - রেজিস্ট্রেশন</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: url('https://i.postimg.cc/fRNqtVHH/Capture.png') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0; padding: 0;
+    }
+    header {
+      display: flex; justify-content: center; align-items: center; gap: 15px;
+      padding: 25px 20px; background-color: rgba(10, 25, 47, 0.9);
+      border-bottom: 4px solid #ffffffaa; border-radius: 0 0 8px 8px;
+    }
+    header img {
+      height: 60px; width: 60px; border-radius: 50%;
+      border: 2px solid #fff; box-shadow: 0 0 10px #00d4ff;
+    }
+    header h1 {
+      font-size: 32px; color: #ffffff; text-shadow: 1px 1px 5px #00d4ff;
+    }
+    form {
+      max-width: 500px; background: linear-gradient(to bottom right, #e0f7fa, #f1f8e9);
+      margin: 20px auto; padding: 25px; border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    label {
+      font-weight: bold; display: block; margin: 15px 0 5px;
+    }
+    input[type="text"], input[type="tel"], select {
+      width: 100%; padding: 10px; font-size: 16px;
+      border: 1px solid #ccc; border-radius: 6px; background: #fff;
+    }
+    #phone {
+      background-color: #e6fffa; font-weight: bold;
+    }
+    input[type="submit"] {
+      background-color: #28a745; color: white; padding: 12px;
+      border: none; border-radius: 6px; cursor: pointer;
+      width: 100%; font-size: 18px; margin-top: 20px;
+    }
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+    #thank-you {
+      display: none; text-align: center; margin-top: 80px;
+      font-size: 36px; color: #ffffff; text-shadow: 2px 2px 5px #000;
+    }
+    .modal {
+      display: none; position: fixed; z-index: 999;
+      left: 0; top: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+      background: white; margin: 10% auto; padding: 30px;
+      width: 90%; max-width: 400px; border-radius: 10px;
+      text-align: center;
+    }
+    .modal-content input {
+      width: 90%; padding: 10px; margin: 15px 0;
+      font-size: 16px; border: 1px solid #ccc; border-radius: 6px;
+    }
+    .modal-btn {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .modal-btn:hover {
+      background-color: #218838;
+    }
+    .admin-button {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .reset-button {
+      background-color: #ffc107;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.postimg.cc/CM49GHq3/484857702-2892954940878501-1043327302025993468-n.jpg" alt="Logo">
+  <h1>রেজিস্ট্রেশন ফর্ম</h1>
+</header>
+
+<div id="thank-you">🎉 ধন্যবাদ রেজিস্ট্রেশন করার জন্য!</div>
+
+<form id="registration-form" action="https://sheetdb.io/api/v1/7etk4by5v2c7d" method="post">
+  <label for="name">ছাত্র/ছাত্রীর নাম:</label>
+  <input type="text" name="data[NAME]" id="name" required>
+
+  <label for="address">স্থায়ী ঠিকানা:</label>
+  <input type="text" name="data[ADDRESS]" id="address" required>
+
+  <label><input type="checkbox" id="running-student"> আমি এখনো এসএসসি পাস করিনি</label>
+
+  <div id="ssc-year-box">
+    <label for="ssc_year">এসএসসি পাশের সাল:</label>
+    <select name="data[SSC_YEAR]" id="ssc_year"><option value="">-- নির্বাচন করুন --</option></select>
+  </div>
+
+  <div id="class-select-box" style="display: none;">
+    <label for="class">শ্রেণী:</label>
+    <select name="data[CLASS]" id="class">
+      <option value="">-- শ্রেণী নির্বাচন করুন --</option>
+      <option value="ষষ্ঠ">ষষ্ঠ</option>
+      <option value="সপ্তম">সপ্তম</option>
+      <option value="অষ্টম">অষ্টম</option>
+      <option value="নবম">নবম</option>
+      <option value="দশম">দশম</option>
+    </select>
+  </div>
+
+  <label for="participants">অংশগ্রহণকারীর সংখ্যা:</label>
+  <select name="data[PARTICIPANTS]" id="participants"><option value="">-- নির্বাচন করুন --</option></select>
+
+  <label>মোট চাঁদা (৳):</label>
+  <input type="text" id="display_fee" readonly>
+  <input type="hidden" name="data[TOTAL_FEE]" id="total_fee_input">
+
+  <div style="background: #fff8dc; padding: 10px; border-radius: 6px; margin: 20px 0;">
+    বিকাশ/নগদ নাম্বারে টাকা পাঠান: <strong>01794725919</strong><br>
+    তারপর নিচে Transaction ID লিখুন:
+  </div>
+
+  <label for="phone">মোবাইল নাম্বার:</label>
+  <input type="tel" name="data[PHONE]" id="phone" maxlength="11" required>
+
+  <label for="txn_id">Transaction ID:</label>
+  <input type="text" name="data[TXN_ID]" id="txn_id" required>
+
+  <input type="submit" value="রেজিস্ট্রেশন করুন">
+</form>
+
+<!-- Reset Modal -->
+<div id="resetModal" class="modal">
+  <div class="modal-content">
+    <h3>🔁 রিসেট পাসওয়ার্ড দিন</h3>
+    <input type="password" id="resetPass" placeholder="********">
+    <br><button class="modal-btn" onclick="handleReset()">রিসেট করুন</button>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal">
+  <div class="modal-content">
+    <h3>🔐 অ্যাডমিন পাসওয়ার্ড দিন</h3>
+    <input type="password" id="adminPass" placeholder="********">
+    <br><button class="modal-btn" onclick="handleAdminLogin()">লগইন</button>
+  </div>
+</div>
+
+<!-- Buttons -->
+<div style="text-align:center;">
+  <button class="reset-button" onclick="document.getElementById('resetModal').style.display='block'">🔁 রেজিস্ট্রেশন পুনরায় চালু করুন</button>
+  <br>
+  <button class="admin-button" onclick="document.getElementById('adminModal').style.display='block'">🔐 অ্যাডমিন লগইন</button>
+</div>
+
+<!-- Admin Panel -->
+<div id="admin-panel" style="display:none; max-width:95%; margin:40px auto; background:#fff; padding:20px; border-radius:10px;">
+  <h3 style="text-align:center;">📋 রেজিস্ট্রেশন তালিকা</h3>
+  <div id="admin-table" style="overflow-x:auto;"></div>
+  <h4 id="admin-summary" style="text-align:center; color:green;"></h4>
+</div>
+
+<script>
+const form = document.getElementById("registration-form");
+const thankYou = document.getElementById("thank-you");
+const sscYear = document.getElementById("ssc_year");
+const participants = document.getElementById("participants");
+const feeDisplay = document.getElementById("display_fee");
+const hiddenFee = document.getElementById("total_fee_input");
+
+for (let y = 1995; y <= 2025; y++) {
+  let opt = new Option(y, y); sscYear.appendChild(opt);
+}
+for (let i = 1; i <= 10; i++) {
+  let opt = new Option(i, i); participants.appendChild(opt);
+}
+
+if (localStorage.getItem("formSubmitted")) {
+  form.style.display = "none";
+  thankYou.style.display = "block";
+}
+
+document.getElementById("running-student").addEventListener("change", function () {
+  document.getElementById("ssc-year-box").style.display = this.checked ? "none" : "block";
+  document.getElementById("class-select-box").style.display = this.checked ? "block" : "none";
+});
+
+function updateFee() {
+  const year = parseInt(sscYear.value);
+  const count = parseInt(participants.value);
+  if (!isNaN(year) && !isNaN(count)) {
+    const base = year <= 2015 ? 500 : 250;
+    const total = base * count;
+    feeDisplay.value = total;
+    hiddenFee.value = total;
+  }
+}
+sscYear.addEventListener("change", updateFee);
+participants.addEventListener("change", updateFee);
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  updateFee();
+  const phone = document.getElementById("phone").value;
+  const txn = document.getElementById("txn_id").value.trim();
+  if (phone.length !== 11 || !/^\d+$/.test(phone)) {
+    alert("সঠিক মোবাইল নাম্বার দিন!"); return;
+  }
+  if (!txn) {
+    alert("Transaction ID দিন!"); return;
+  }
+
+  fetch(form.action, {
+    method: "POST", body: new FormData(form)
+  })
+  .then(res => res.json())
+  .then(() => {
+    localStorage.setItem("formSubmitted", "true");
+    form.reset();
+    form.style.display = "none";
+    thankYou.style.display = "block";
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
+});
+
+function handleReset() {
+  const pass = document.getElementById("resetPass").value;
+  if (pass === "reset2025") {
+    localStorage.removeItem("formSubmitted");
+    alert("✅ পুনরায় চালু হয়েছে");
+    location.reload();
+  } else {
+    alert("❌ ভুল পাসওয়ার্ড!");
+  }
+}
+
+function handleAdminLogin() {
+  const val = document.getElementById("adminPass").value;
+  if (val === "eid1221") {
+    fetch("https://sheetdb.io/api/v1/7etk4by5v2c7d")
+      .then(res => res.json())
+      .then(data => {
+        let html = "<table border='1' cellpadding='6' style='width:100%; border-collapse:collapse;'><tr><th>নাম</th><th>ঠিকানা</th><th>SSC</th><th>শ্রেণী</th><th>সংখ্যা</th><th>মোবাইল</th><th>Txn ID</th><th>মোট</th></tr>";
+        let totalP = 0, totalTaka = 0;
+        data.forEach(row => {
+          html += `<tr><td>${row.NAME||''}</td><td>${row.ADDRESS||''}</td><td>${row.SSC_YEAR||''}</td><td>${row.CLASS||''}</td><td>${row.PARTICIPANTS||''}</td><td>${row.PHONE||''}</td><td>${row.TXN_ID||''}</td><td>${row.TOTAL_FEE||''}</td></tr>`;
+          totalP += parseInt(row.PARTICIPANTS||0);
+          totalTaka += parseInt(row.TOTAL_FEE||0);
+        });
+        html += "</table>";
+        document.getElementById("admin-table").innerHTML = html;
+        document.getElementById("admin-summary").innerText = `মোট অংশগ্রহণকারী: ${totalP} | মোট টাকা: ${totalTaka}৳`;
+        document.getElementById("admin-panel").style.display = "block";
+        document.getElementById("adminModal").style.display = "none";
+      });
+  } else {
+    alert("❌ ভুল পাসওয়ার্ড!");
+  }
+}
+</script>
+</body>
+</html>
